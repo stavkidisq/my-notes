@@ -1,6 +1,6 @@
 ### Типы данных в JavaScript.
 В языке JavaScript имеется два типа данных. А именно: *примитивы* и *объекты*.
-#### Примитивы в JavaScript.
+#### Примитивы
 ```js
 let num = 123; // "number"
 let str = "string"; // "string"
@@ -45,3 +45,43 @@ const res3_11 = !!null; // false
 const res3_12 = 1 * {}; //NaN
 const res3_13 = !!NaN // false
 ```
+
+#### Функции
+Есть два способа задания функции: `function declaration` и `function expression`.
+```js
+// Function declaraion
+let res6_0 = 0;
+declaredFunc(1); // Сработает
+function declaredFunc(arg6_0){
+  res6_0 + arguments[0];
+}
+```
+```js
+// Function expression
+let res6_1 = 0;
+expressedFunc(2); // Не сработает
+const expressedFunc = function(arg6_1){
+  res6_1 += arg6_1;
+  let res = arg6_1;
+  return res;
+}
+```
+
+Также можно создать стрелочную функцию: 
+```js
+//Function expression
+let res6_2 = 0;
+arrowFunc(2); // Не сработает
+let arrowFunc = (arg6_2) => {
+  return res6_2 + arg6_2;
+}
+```
+
+Также в параметры функции можно ничего не вводить:
+```js
+sum(1, 2); // => 3
+function sum(){
+  return arguments[0] + arguments[1];
+}
+```
+Роль аргументов функции в данно слкчае играет массив `arguments`.
