@@ -1,2 +1,5 @@
-# stavkidisq-blog
-This repository is intended for publishing articles.
+### stavkidisq-blog
+
+![image](https://user-images.githubusercontent.com/57217014/195415462-7725e368-ab0c-45ad-a927-8e7bf6a1fb67.png)
+
+Репозиторий хранит всю важную информацию поязыкам C#, JavaScript, SQL.
