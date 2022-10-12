@@ -5,6 +5,6 @@
 Репозиторий хранит всю важную информацию поязыкам C#, JavaScript, SQL.
 
 Структура данного репозитория:
-- <a href="stavkidisq/my-notes/tree/main/c-sharp">Материалы по языку C#.
-- <a href="stavkidisq/my-notes/tree/main/java-script">Материалы по языку JavaScript.
-- <a href="stavkidisq/my-notes/tree/main/c-sharp/patterns">Материалы по паттернам.
+- <a href="stavkidisq/my-notes/c-sharp">Материалы по языку C#.
+- <a href="stavkidisq/my-notes/java-script">Материалы по языку JavaScript.
+- <a href="stavkidisq/my-notes/c-sharp/patterns">Материалы по паттернам.
