@@ -13,3 +13,45 @@
 - В отличие от славаря, **HashSet** хранит только **значения**.
 - **Невозможна** сортировка структуры данных.
 - Может хранить элементы только **одного** типа.
+
+#### Добавление данных в коллекцию HashSet.
+
+Для добавления данных в коллекцию используется метод `Add`.
+
+```csharp
+using System.Collections.Generic;
+
+HashSet<string> hashList = new HashSet<string>();
+
+hashList.Add("New-York");
+hashList.Add("Los-Angeles");
+hashList.Add("Chicago");
+hashList.Add("Houston");
+hashList.Add("New-York");
+hashList.Add("New-York");
+hashList.Add("Chicago");
+
+foreach (var hash in hashList)
+{
+    Console.WriteLine(hash);
+}
+```
+
+![image](https://user-images.githubusercontent.com/57217014/196034977-a7d20f0e-5231-4d9b-9ee2-7b9944a8db3b.png)
+
+Данная программа вывела на консоль элементы, однако все **повторения** были удалены.
+
+#### Удаление данных из коллекции HashSet.
+
+Для удаления элементов из коллекции используются слудующие методы: `Remove` и `RemoveWhere`.
+
+```csharp
+hashList.Remove("Chicago");
+hashList.RemoveWhere(item => item[0] == 'N');
+```
+
+Чтобы удалить все элементы, можно воспользоваться функцией `Clear`.
+
+```csharp
+hashList.Clear();
+```
