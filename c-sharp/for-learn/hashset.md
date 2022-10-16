@@ -55,3 +55,47 @@ hashList.RemoveWhere(item => item[0] == 'N');
 ```csharp
 hashList.Clear();
 ```
+
+#### Объединение коллекций.
+
+Объединение коллекций происходит с использованием метода `UnionWith`.
+
+```csharp
+using System.Collections.Generic;
+
+HashSet<string> hashListA = new HashSet<string> { "New-York", "Los-Angeles", "Chicago" };
+HashSet<string> hashListB = new HashSet<string> { "Houston", "Phoenix", "Chicago" };
+
+hashListA.UnionWith(hashListB);
+
+foreach(var hash in hashListA)
+{
+    Console.WriteLine(hash);
+}
+```
+
+![image](https://user-images.githubusercontent.com/57217014/196041298-c2e53745-5634-47cf-80f3-81eae5228324.png)
+
+#### Пересечение коллекций.
+
+Для пересечения коллекций применяется метод `IntersectWith`.
+
+```csharp
+using System.Collections.Generic;
+
+HashSet<string> hashListA = new HashSet<string> { "New-York", "Los-Angeles", "Chicago" };
+HashSet<string> hashListB = new HashSet<string> { "Houston", "Phoenix", "Chicago" };
+
+hashListA.IntersectWith(hashListB);
+
+foreach(var hash in hashListA)
+{
+    Console.WriteLine(hash);
+}
+```
+
+![image](https://user-images.githubusercontent.com/57217014/196041556-bcdcea5b-e764-4f8f-a239-f1d90fa3c61b.png)
+
+#### Резюме.
+
+**HashSet** может оптимально применяться там, где нужно производить операции над множествами (вычитание, пересечение и т.д.). Однако нужно помнить, что данные операции являются избыточными, т.е. они поглащают больше ресурсов, чем нужно для хранения элементов. Поэтому множества не должны превышать допустимое количество (примерно 100-1000 элементов).
