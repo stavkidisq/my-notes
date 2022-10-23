@@ -126,3 +126,103 @@ public Foo(IFoo foo)
 - Требование немедленной инициализации всего графа зависимости. Может привести к снижению производительности системы, однако в платформе .NET это очень редкое явление.
 
 Одной из важных проблем, которые могут произойти при использовании внедрения зависимостей через конструктор - это перенасыщение конструктора параметрами.
+
+##### Property Injecton - внедрение через свойство.
+
+*Назначение*: разорвать жесткую связь между классом и его необязательными зависимостями.
+
+*Задача*: как можно решить внедрение зависимостей как опцию в классе, если имеется подходящее локальное умолчание?
+*Решение*: использованием записываемого свойства, что позволяет вызывающей стороне устанавливать его значение, если она хочет заменить поведение, применяемое по умолчанию.
+
+Класс использующий зависимость должен быть открытым
+
+```csharp
+public class SomeClass
+{
+  public ISomeInterface Dependency { get; set; }
+}
+```
+
+В данном коде класс `SomeClass` зависит от интерфейса `ISomeInterface`. Клиенты могут передавать реализацию `ISomeInterface` через свойство Dependency. Данное свойство может меняться во время жизненного пути `SomeClass`. Данное свойство может использоваться функциями `SomeClass`
+
+```csharp
+public string DoSomething(string message)
+{
+  return this.Dependency.DoStuff(message);
+}
+```
+
+Однако приведенный ниже код не может гарантировать нам отсутствие `NullReferenceException`. Воспользовавшись следующим кодом, программа выдаст исключение.
+
+```csharp
+var sc = new SomeClass();
+sc.DoSomething("Hello World!");
+```
+
+Чтобы избавиться от нависшей над нами проблемы, нужно осуществить внутри свойства проверку на значение `null`.
+
+```csharp
+public class SomeClass
+{
+  private ISomeInterface _dependency;
+  
+  public ISomeInterface Dependency 
+  {
+    get => _dependency;
+    set => _dependency = value ?? throw new ArgumentNullException(nameof(value));
+  }
+  
+  public SomeClass()
+  {
+    _dependency = new DefaultSomeInterface();
+  }
+}
+```
+
+*Задача*: Что должно произойти, если клиент попытается изменить значение зависимости в течение жизненного цикла класса?
+*Решение*: следствием этого может быть противоречивое или неожиданное поведение класса, поэтому лучше защититься от этого следующим способом.
+
+```csharp
+public class SomeClass
+{
+  private ISomeInterface _dependency;
+  
+  public ISomeInterface Dependency
+  {
+    get => _dependency ?? (_dependency = new DefaultSomeInterface());
+    set
+    {
+      if(_dependency != null)
+        throw new InvalidOperationException(nameof(value));
+        
+      _dependency = value ?? throw new ArgumentNullException(nameof(value));
+    }
+  }
+}
+```
+
+Первый блок сеттера отвечает за то, что значение зависимости можно установить только один раз. Следующий защитный блок защищает нас от установки значения `null`.
+
+*Применение*: внедрение свойства следует применять только в случае, когда для разрабатываемого класса имеется подходящее локальное умолчание, но при этом вы хотели бы оставить вызывающей стороне возможность использовать другую реализацию типа зависимости.
+
+Ошибки в использовании внедрения через свойства:
+- Использование Property Injection для обязательных зависимостей.
+- Сложность.
+- //TODO:
+
+Альтернативой использования Property Injection может стать старый подход с двумя конструкторами.
+
+```csharp
+public class SomeClass
+{
+  private ISomeInterface _dependency;
+  
+  public SomeClass() : this(new DefaultSomeInterface()) { }
+  
+  public SomeClass(ISomeInterface dependency)
+  {
+    _dependency = dependency;
+  }
+}
+```
+*Вывод*: паттерн внедрения зависимостей Property Injection идеально подходит для необязательных зависимостей.
