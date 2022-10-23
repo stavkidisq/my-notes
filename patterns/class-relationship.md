@@ -1,5 +1,13 @@
 ### Отношения между классами.
 
+#### Зависимость.
+
+**Зависимость** - семантически представляет собой связь между двумя элементами модели, в которой оихменение одного элемента (независимого) может привести к изменению семантики другого элемента (зависимого).
+
+Зависимость на UML выглядит так
+
+![image](https://user-images.githubusercontent.com/57217014/197409917-6877c4f6-0912-413c-8fc9-d63d083b80bb.png)
+
 #### Наследование.
 
 **Наслеование** является одной из основных парадигм ООП. Позволяет передать функционал от одного класса (родительского) к другому (наследнику). Наследование на языке C# выглядит так
@@ -72,22 +80,22 @@ public class Player
 Композиция отражает отношение **HAS A**, то есть отношение "имеет". Композиция на языке C# выгладит так
 
 ```csharp
-public class ElectricalEngine { //... }
+public class MathDepartment { //... }
 
-public Car
+public University
 {
-  private ElectricalEngine Engine { get; set; }
+  private MathDepartment MathDepartment { get; set; }
   
-  public Car(ElectricalEngine _carEngine)
+  public Car(MathDepartment mathDepartment)
   {
-    Engine = _engine;
+    MathDepartment = _mathDepartment;
   }
 }
 ```
 
 Композиция на UML выглядит так
 
-![image](https://user-images.githubusercontent.com/57217014/196496701-8ac5bca2-7b23-47d5-9dbf-0f9e252f0ffe.png)
+![image](https://user-images.githubusercontent.com/57217014/197410243-bfbde8db-51ba-495c-a3f4-9a14300c807d.png)
 
 Например, кафедра математики и университет. Кафедра без университета не нужна, как и университет без кафедр. То есть в момент создания университеты мы создаем кафедры. Иными словами, конструктор класса университет создает новые классы кафедр. Не передача, а именно создание.
 
